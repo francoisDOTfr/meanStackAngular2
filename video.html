@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>video</title>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+    <body onload='longueur();tableau();ok();pourcentage();'>
+
+
+        <div class="vertical-container elem">
+            <span class="label">&lt;div class="vertical-container"&gt;</span>
+
+            <p>
+                Pour finir, c'est facile d'aligner quelque chose verticalement en CSS !
+            </p>
+
+        </div>
+
+
+        <div class="monster"></div>
+
+
+        <div class='menu'>
+            <a href='#'>menu</a>
+        </div>
+        <div class='divm' id='echiquier'></div>
+
+        <div id="vid">
+            <div>
+                <video id="Video1">
+                    <source src="demo.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+        </div>
+
+        <div id="full" class='full'>pourcentage</div>
+
+        <script type="text/javascript">
+            function setTime(value) {
+                var video = document.getElementById("Video1");
+                video.currentTime = value;
+            }
+
+            console.log($("#Video1").height());
+            console.log($("#Video1").width());
+
+            var vLargeur = $("#Video1").height();
+            var vLongueur = $("#Video1").width();
+
+            function longueur() {
+                var longueur = document.getElementById("Video1").duration;
+                return longueur;
+            }
+
+            function tableau() {
+                var tableauString = "<table>";
+                var num = 0;
+                for (var i = 0; i < 10; i++) {
+                    tableauString += "<tr>";
+                    for (var j = 0; j < 10; j++) {
+                        tableauString += "<td class='case' " + "value='" + num + "' >";
+                        tableauString += "</td>";
+                        num++;
+                    }
+                    tableauString += "</tr>";
+                    num * 10;
+                }
+                tableauString += "</table>";
+
+                $('#echiquier').html(tableauString);
+            }
+
+            function ok() {
+                $('.case').on("mouseover", function (event) {
+                    var target = event.currentTarget;
+
+                    setTime($(target).attr('value') / 100 * longueur());
+                    console.log($(target).attr('value'));
+                });
+            }
+
+            function pourcentage() {
+                $('.case').on("mouseover", function (event) {
+                    var target = event.currentTarget;
+                    $('#full').text($(target).attr('value') + '%');
+                });
+            };
+
+            $(window).load(function () {
+                $(".monster").fadeOut("200");
+            })
+        </script>
+    </body>
+
+</html>
